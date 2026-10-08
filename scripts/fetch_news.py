@@ -1,17 +1,17 @@
 """抓取中美 AI 新闻源，输出近 24 小时（不足则放宽到 48 小时）的新闻列表。
 
 结果写入 data/news.json，供 summarize.py 读取。
+用 curl 下载（兼容本机代理/公司网络环境，规避 Python SSL 证书问题），再交给 feedparser 解析。
 """
 import json
 import re
 import socket
+import subprocess
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import feedparser
-
-socket.setdefaulttimeout(30)  # 防止某个源卡住拖垮整条任务
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from sources import SOURCES, matches_ai  # noqa: E402
@@ -25,6 +25,18 @@ USER_AGENT = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 )
+
+
+def _fetch_url(url: str) -> bytes:
+    """用 curl 抓取（curl 在各环境都可用且证书正常），返回原始字节交给 feedparser。"""
+    result = subprocess.run(
+        ["curl", "-s", "--compressed", "--max-time", "20", "-L", "-A", USER_AGENT, url],
+        capture_output=True,
+        timeout=30,
+    )
+    if result.returncode != 0 or not result.stdout:
+        raise RuntimeError(f"curl 退出码 {result.returncode}")
+    return result.stdout
 
 
 def _parse_time(entry) -> datetime | None:
@@ -53,7 +65,7 @@ def fetch_all() -> list[dict]:
 
     for src in SOURCES:
         try:
-            feed = feedparser.parse(src["url"], agent=USER_AGENT)
+            feed = feedparser.parse(_fetch_url(src["url"]))
         except Exception as e:  # noqa: BLE001
             print(f"[skip] {src['name']}: {e}", file=sys.stderr)
             continue
