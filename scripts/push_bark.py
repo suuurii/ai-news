@@ -1,5 +1,6 @@
-"""通过 Bark 推送到 iPhone：通知含标题 + Top3 摘要，点击打开完整 HTML 报告。"""
+"""通过 Bark 推送到 iPhone：通知含标题 + 简短 Top3 摘要，点击打开完整 HTML 报告。"""
 import os
+import re
 import sys
 import urllib.parse
 from pathlib import Path
@@ -15,6 +16,14 @@ BRIEFING = ROOT / "data" / "briefing.md"
 DEFAULT_REPORT_URL = "https://raw.githubusercontent.com/suuurii/ai-news/main/report.html"
 
 
+def _plain(text: str) -> str:
+    """去掉 markdown 链接/加粗/符号，得到干净短文本。"""
+    text = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", text)
+    text = re.sub(r"\*\*([^*]*)\*\*", r"\1", text)
+    text = re.sub(r"[*#▎`]", "", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
 def main() -> None:
     if not BARK_KEY:
         print("缺少 BARK_KEY，跳过推送", file=sys.stderr)
@@ -27,15 +36,24 @@ def main() -> None:
     if lines and lines[0].lstrip().startswith("#"):
         headline = lines[0].lstrip().lstrip("#").strip() or headline
 
-    preview = " ".join(x.strip() for x in lines[1:8] if x.strip())[:200]
+    # 从 Top3 里取干净标题，拼成简短正文（避免 URL 过长被 Bark 拒绝）
+    top3 = []
+    for line in lines:
+        if re.match(r"^[1-3]\.\s", line):
+            top3.append(_plain(line.split("——")[0].split("—")[0]))
+        if len(top3) >= 3:
+            break
+    body = " ｜ ".join(top3) if top3 else _plain(" ".join(lines[1:6]))
+    body = body[:120]
+
     report_url = os.environ.get("REPORT_URL", DEFAULT_REPORT_URL)
 
     base = BARK_KEY if BARK_KEY.startswith("http") else f"https://api.day.app/{BARK_KEY}"
-    url = f"{base}/{urllib.parse.quote(headline)}/{urllib.parse.quote(preview)}"
+    url = f"{base}/{urllib.parse.quote(headline)}/{urllib.parse.quote(body)}"
     params = {
         "url": report_url,        # 点击通知跳转
         "group": "AI每日简报",    # 通知分组
-        "level": "active",        # 正常提醒级别
+        "level": "active",        # 提醒级别
         "isArchive": "1",         # 归档到历史
     }
     resp = requests.get(url, params=params, timeout=30)
