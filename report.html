@@ -8,45 +8,48 @@
   :root { color-scheme: light dark; }
   * { box-sizing: border-box; }
   body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-         max-width: 680px; margin: 0 auto; padding: 30px 20px 80px;
-         line-height: 1.75; font-size: 16px; color: #1b1b1f; background: #fff;
+         max-width: 700px; margin: 0 auto; padding: 32px 20px 88px;
+         line-height: 1.7; font-size: 16px; color: #1a211f; background: #fbfdfc;
          -webkit-font-smoothing: antialiased; }
-  .meta { color: #999; font-size: 13px; margin-bottom: 4px; }
-  h1 { font-size: 26px; line-height: 1.35; margin: 6px 0 24px; }
-  h2 { font-size: 19px; margin: 34px 0 14px; padding-bottom: 8px;
-       border-bottom: 2px solid #4f8cff; }
-  h2.section { border-left: 4px solid #4f8cff; padding-left: 12px; border-bottom: none; }
+  .meta { color: #8a9492; font-size: 13px; letter-spacing: .2px; margin-bottom: 6px; }
+  h1 { font-size: 27px; line-height: 1.35; margin: 4px 0 26px; color: #0f2420; }
+  h2 { font-size: 19px; margin: 34px 0 14px; padding-left: 12px;
+       border-left: 4px solid #007A6D; color: #0f2420; }
 
   ol.top3 { list-style: none; padding: 0; margin: 0; counter-reset: n; }
-  ol.top3 li { position: relative; padding: 16px 16px 16px 52px; margin: 12px 0;
-       background: #f4f6fb; border-radius: 12px; }
+  ol.top3 li { position: relative; padding: 16px 18px 16px 54px; margin: 12px 0;
+       background: #eef6f4; border-radius: 14px; }
   ol.top3 li::before { counter-increment: n; content: counter(n);
-       position: absolute; left: 14px; top: 16px; width: 26px; height: 26px;
-       border-radius: 50%; background: #4f8cff; color: #fff; font-size: 14px;
+       position: absolute; left: 14px; top: 16px; width: 28px; height: 28px;
+       border-radius: 50%; background: #007A6D; color: #fff; font-size: 14px;
        font-weight: 700; display: flex; align-items: center; justify-content: center; }
 
   ul { list-style: none; padding: 0; margin: 0; }
-  ul li { padding: 12px 2px; border-bottom: 1px solid rgba(128,128,128,.15); }
+  ul li { padding: 12px 4px; border-bottom: 1px solid #e6ecea; }
   ul li:last-child { border-bottom: none; }
 
   .tag { display: inline-block; font-size: 12px; font-weight: 600; line-height: 1;
-         padding: 3px 8px; border-radius: 6px; background: #e7ecfb; color: #3f62e0;
-         margin-right: 6px; }
-  a { color: #0a66c2; text-decoration: none; border-bottom: 1px solid rgba(10,102,194,.35);
+         padding: 4px 9px; border-radius: 6px; margin-right: 7px; }
+  .tag.tech { background: #dcefeb; color: #00655a; }
+  .tag.biz  { background: #ffe7dd; color: #bf4318; }
+
+  a { color: #007A6D; text-decoration: none; border-bottom: 1px solid rgba(0,122,109,.35);
       word-break: break-all; }
-  a:hover { border-bottom-color: #0a66c2; }
+  a:hover { border-bottom-color: #007A6D; }
 
   @media (prefers-color-scheme: dark) {
-    body { color: #e6e6ea; background: #111114; }
-    ol.top3 li { background: #1c1d24; }
-    .tag { background: #2a3350; color: #9db4ff; }
-    ul li { border-bottom-color: rgba(255,255,255,.12); }
-    a { color: #7ab7ff; border-bottom-color: rgba(122,183,255,.35); }
+    body { color: #dde6e4; background: #0f1413; }
+    h1, h2 { color: #e8f0ee; }
+    ol.top3 li { background: #16211f; }
+    .tag.tech { background: #14332c; color: #6fd3c2; }
+    .tag.biz  { background: #3a2418; color: #ff9c74; }
+    ul li { border-bottom-color: #22302d; }
+    a { color: #4fd1bd; border-bottom-color: rgba(79,209,189,.35); }
   }
 </style>
 </head>
 <body>
-<div class="meta">AI 每日简报 · 2026-10-08 13:04</div>
+<div class="meta">AI 每日简报 · 2026-10-08 13:10</div>
 <h1>今日AI：GPT-6免费开放，ChatGPT长出交互界面</h1>
 <h2>今日速览（Top 3）</h2>
 <ol class="top3">
@@ -56,12 +59,12 @@
 </ol>
 <h2>其他值得关注</h2>
 <ul>
-<li><span class="tag">🇺🇸 商业</span> Nous Research 确认 15 亿美元估值，完成 9000 万美元 B 轮并推出面向企业的 AI Agent，<a href="https://techcrunch.com/2026/10/07/nous-research-confirms-it-hit-1-5b-valuation-launches-ai-agents-for-business-users/" target="_blank" rel="noopener">原文</a></li>
-<li><span class="tag">🇺🇸 商业</span> Meta AI 助手 Muse 登陆 iPad，移动端上线仅一个月便快速扩张生态，<a href="https://techcrunch.com/2026/10/07/metas-muse-launches-on-ipad-just-a-month-after-its-mobile-debut/" target="_blank" rel="noopener">原文</a></li>
-<li><span class="tag">🇺🇸 技术</span> 海外开源模型重新提速，&quot;美版 DeepSeek&quot;首度交卷，Mistral 同期亮牌，<a href="https://www.infoq.cn/article/0wk4G4cZwbHgYdeNoQPV?utm_source=rss&amp;utm_medium=article" target="_blank" rel="noopener">原文</a></li>
-<li><span class="tag">🇨🇳 商业</span> 大模型原生智能体手机 STEPX Neo 将于 10 月 13 日发布，<a href="https://www.qbitai.com/2026/10/501915.html" target="_blank" rel="noopener">原文</a></li>
-<li><span class="tag">🇨🇳 商业</span> 卡尔动力启动规模化 AI 运输网络，&quot;无驾驶舱&quot;重卡上路，无人货运进入扩张期，<a href="https://www.leiphone.com/category/transportation/YNHH7HgbCnGN56XQ.html" target="_blank" rel="noopener">原文</a></li>
-<li><span class="tag">🇺🇸 商业</span> 开发者以开源克隆挑战 Adobe，Opus 打造的 Creative Cloud 替代品免费但尚未完工，<a href="https://arstechnica.com/ai/2026/10/software-is-over-bold-ai-developer-takes-aim-at-adobe-with-open-source-clones/" target="_blank" rel="noopener">原文</a></li>
+<li><span class="tag biz">🇺🇸 商业</span> Nous Research 确认 15 亿美元估值，完成 9000 万美元 B 轮并推出面向企业的 AI Agent，<a href="https://techcrunch.com/2026/10/07/nous-research-confirms-it-hit-1-5b-valuation-launches-ai-agents-for-business-users/" target="_blank" rel="noopener">原文</a></li>
+<li><span class="tag biz">🇺🇸 商业</span> Meta AI 助手 Muse 登陆 iPad，移动端上线仅一个月便快速扩张生态，<a href="https://techcrunch.com/2026/10/07/metas-muse-launches-on-ipad-just-a-month-after-its-mobile-debut/" target="_blank" rel="noopener">原文</a></li>
+<li><span class="tag tech">🇺🇸 技术</span> 海外开源模型重新提速，&quot;美版 DeepSeek&quot;首度交卷，Mistral 同期亮牌，<a href="https://www.infoq.cn/article/0wk4G4cZwbHgYdeNoQPV?utm_source=rss&amp;utm_medium=article" target="_blank" rel="noopener">原文</a></li>
+<li><span class="tag biz">🇨🇳 商业</span> 大模型原生智能体手机 STEPX Neo 将于 10 月 13 日发布，<a href="https://www.qbitai.com/2026/10/501915.html" target="_blank" rel="noopener">原文</a></li>
+<li><span class="tag biz">🇨🇳 商业</span> 卡尔动力启动规模化 AI 运输网络，&quot;无驾驶舱&quot;重卡上路，无人货运进入扩张期，<a href="https://www.leiphone.com/category/transportation/YNHH7HgbCnGN56XQ.html" target="_blank" rel="noopener">原文</a></li>
+<li><span class="tag biz">🇺🇸 商业</span> 开发者以开源克隆挑战 Adobe，Opus 打造的 Creative Cloud 替代品免费但尚未完工，<a href="https://arstechnica.com/ai/2026/10/software-is-over-bold-ai-developer-takes-aim-at-adobe-with-open-source-clones/" target="_blank" rel="noopener">原文</a></li>
 </ul>
 <h2>今日趋势</h2>
 <p>大模型竞争从&quot;跑分&quot;转向&quot;界面与生态&quot;：GPT-6 用交互式 UI 抢占入口，Claude 以性价比卡位，微软则把 AI 塞进操作系统底层——谁能定义用户与 AI 的交互方式，谁就掌握下一轮话语权。</p>

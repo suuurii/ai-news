@@ -40,7 +40,9 @@ def main() -> None:
     top3 = []
     for line in lines:
         if re.match(r"^[1-3]\.\s", line):
-            top3.append(_plain(line.split("——")[0].split("—")[0]))
+            t = _plain(line.split("——")[0].split("—")[0])
+            t = re.sub(r"^\d+\.\s*", "", t)  # 去掉原有序号，避免「1. 1.」双序号
+            top3.append(t)
         if len(top3) >= 3:
             break
     if top3:

@@ -1,4 +1,7 @@
-"""把简报 markdown 渲染成 HTML 页面（Bark 推送与桌面通知共用）。"""
+"""把简报 markdown 渲染成 HTML 页面（Bark 推送与桌面通知共用）。
+
+样式参考 theroboradar.com：青绿主色 + 技术绿/商业橙徽章。
+"""
 import re
 from datetime import datetime
 from html import escape
@@ -7,10 +10,11 @@ _TAG_RE = re.compile(r"^(🇺🇸|🇨🇳)\s*(技术|商业)\s*(?:·|：|:)?\s*
 
 
 def _badge(s: str) -> str:
-    """把行首的「🇺🇸 技术」这类标签转成小徽章。"""
+    """把行首的「🇺🇸 技术」这类标签转成彩色小徽章。"""
     m = _TAG_RE.match(s)
     if m:
-        return f'<span class="tag">{m.group(1)} {m.group(2)}</span> ' + s[m.end():]
+        cat = "tech" if m.group(2) == "技术" else "biz"
+        return f'<span class="tag {cat}">{m.group(1)} {m.group(2)}</span> ' + s[m.end():]
     return s
 
 
@@ -74,40 +78,43 @@ _TEMPLATE = """<!doctype html>
   :root {{ color-scheme: light dark; }}
   * {{ box-sizing: border-box; }}
   body {{ font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-         max-width: 680px; margin: 0 auto; padding: 30px 20px 80px;
-         line-height: 1.75; font-size: 16px; color: #1b1b1f; background: #fff;
+         max-width: 700px; margin: 0 auto; padding: 32px 20px 88px;
+         line-height: 1.7; font-size: 16px; color: #1a211f; background: #fbfdfc;
          -webkit-font-smoothing: antialiased; }}
-  .meta {{ color: #999; font-size: 13px; margin-bottom: 4px; }}
-  h1 {{ font-size: 26px; line-height: 1.35; margin: 6px 0 24px; }}
-  h2 {{ font-size: 19px; margin: 34px 0 14px; padding-bottom: 8px;
-       border-bottom: 2px solid #4f8cff; }}
-  h2.section {{ border-left: 4px solid #4f8cff; padding-left: 12px; border-bottom: none; }}
+  .meta {{ color: #8a9492; font-size: 13px; letter-spacing: .2px; margin-bottom: 6px; }}
+  h1 {{ font-size: 27px; line-height: 1.35; margin: 4px 0 26px; color: #0f2420; }}
+  h2 {{ font-size: 19px; margin: 34px 0 14px; padding-left: 12px;
+       border-left: 4px solid #007A6D; color: #0f2420; }}
 
   ol.top3 {{ list-style: none; padding: 0; margin: 0; counter-reset: n; }}
-  ol.top3 li {{ position: relative; padding: 16px 16px 16px 52px; margin: 12px 0;
-       background: #f4f6fb; border-radius: 12px; }}
+  ol.top3 li {{ position: relative; padding: 16px 18px 16px 54px; margin: 12px 0;
+       background: #eef6f4; border-radius: 14px; }}
   ol.top3 li::before {{ counter-increment: n; content: counter(n);
-       position: absolute; left: 14px; top: 16px; width: 26px; height: 26px;
-       border-radius: 50%; background: #4f8cff; color: #fff; font-size: 14px;
+       position: absolute; left: 14px; top: 16px; width: 28px; height: 28px;
+       border-radius: 50%; background: #007A6D; color: #fff; font-size: 14px;
        font-weight: 700; display: flex; align-items: center; justify-content: center; }}
 
   ul {{ list-style: none; padding: 0; margin: 0; }}
-  ul li {{ padding: 12px 2px; border-bottom: 1px solid rgba(128,128,128,.15); }}
+  ul li {{ padding: 12px 4px; border-bottom: 1px solid #e6ecea; }}
   ul li:last-child {{ border-bottom: none; }}
 
   .tag {{ display: inline-block; font-size: 12px; font-weight: 600; line-height: 1;
-         padding: 3px 8px; border-radius: 6px; background: #e7ecfb; color: #3f62e0;
-         margin-right: 6px; }}
-  a {{ color: #0a66c2; text-decoration: none; border-bottom: 1px solid rgba(10,102,194,.35);
+         padding: 4px 9px; border-radius: 6px; margin-right: 7px; }}
+  .tag.tech {{ background: #dcefeb; color: #00655a; }}
+  .tag.biz  {{ background: #ffe7dd; color: #bf4318; }}
+
+  a {{ color: #007A6D; text-decoration: none; border-bottom: 1px solid rgba(0,122,109,.35);
       word-break: break-all; }}
-  a:hover {{ border-bottom-color: #0a66c2; }}
+  a:hover {{ border-bottom-color: #007A6D; }}
 
   @media (prefers-color-scheme: dark) {{
-    body {{ color: #e6e6ea; background: #111114; }}
-    ol.top3 li {{ background: #1c1d24; }}
-    .tag {{ background: #2a3350; color: #9db4ff; }}
-    ul li {{ border-bottom-color: rgba(255,255,255,.12); }}
-    a {{ color: #7ab7ff; border-bottom-color: rgba(122,183,255,.35); }}
+    body {{ color: #dde6e4; background: #0f1413; }}
+    h1, h2 {{ color: #e8f0ee; }}
+    ol.top3 li {{ background: #16211f; }}
+    .tag.tech {{ background: #14332c; color: #6fd3c2; }}
+    .tag.biz  {{ background: #3a2418; color: #ff9c74; }}
+    ul li {{ border-bottom-color: #22302d; }}
+    a {{ color: #4fd1bd; border-bottom-color: rgba(79,209,189,.35); }}
   }}
 </style>
 </head>
