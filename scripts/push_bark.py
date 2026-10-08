@@ -43,8 +43,11 @@ def main() -> None:
             top3.append(_plain(line.split("——")[0].split("—")[0]))
         if len(top3) >= 3:
             break
-    body = " ｜ ".join(top3) if top3 else _plain(" ".join(lines[1:6]))
-    body = body[:120]
+    if top3:
+        body = "\n".join(f"{i + 1}. {t}" for i, t in enumerate(top3))
+    else:
+        body = _plain(" ".join(lines[1:6]))
+    body = body[:200]
 
     report_url = os.environ.get("REPORT_URL", DEFAULT_REPORT_URL)
 

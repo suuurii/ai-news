@@ -3,6 +3,16 @@ import re
 from datetime import datetime
 from html import escape
 
+_TAG_RE = re.compile(r"^(🇺🇸|🇨🇳)\s*(技术|商业)\s*(?:·|：|:)?\s*")
+
+
+def _badge(s: str) -> str:
+    """把行首的「🇺🇸 技术」这类标签转成小徽章。"""
+    m = _TAG_RE.match(s)
+    if m:
+        return f'<span class="tag">{m.group(1)} {m.group(2)}</span> ' + s[m.end():]
+    return s
+
 
 def md_to_html(md: str) -> str:
     out = []
@@ -37,7 +47,7 @@ def md_to_html(md: str) -> str:
             if list_type != "ol":
                 close_list()
                 list_type = "ol"
-                out.append("<ol>")
+                out.append('<ol class="top3">')
             text = re.sub(r"^\d+\.\s", "", s)
             out.append(f"<li>{text}</li>")
         elif line.startswith("- "):
@@ -45,11 +55,10 @@ def md_to_html(md: str) -> str:
                 close_list()
                 list_type = "ul"
                 out.append("<ul>")
-            out.append(f"<li>{s[2:]}</li>")
+            out.append(f"<li>{_badge(s[2:])}</li>")
         else:
             close_list()
-            cls = "region" if re.match(r"^[🇺🇸🇨🇳]", line) else ""
-            out.append(f'<p class="{cls}">{s}</p>')
+            out.append(f"<p>{s}</p>")
 
     close_list()
     return "\n".join(out)
@@ -63,22 +72,43 @@ _TEMPLATE = """<!doctype html>
 <title>{title}</title>
 <style>
   :root {{ color-scheme: light dark; }}
+  * {{ box-sizing: border-box; }}
   body {{ font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-         max-width: 720px; margin: 0 auto; padding: 32px 20px 72px;
-         line-height: 1.75; color: #1c1c1e; background: #fff; }}
+         max-width: 680px; margin: 0 auto; padding: 30px 20px 80px;
+         line-height: 1.75; font-size: 16px; color: #1b1b1f; background: #fff;
+         -webkit-font-smoothing: antialiased; }}
+  .meta {{ color: #999; font-size: 13px; margin-bottom: 4px; }}
+  h1 {{ font-size: 26px; line-height: 1.35; margin: 6px 0 24px; }}
+  h2 {{ font-size: 19px; margin: 34px 0 14px; padding-bottom: 8px;
+       border-bottom: 2px solid #4f8cff; }}
+  h2.section {{ border-left: 4px solid #4f8cff; padding-left: 12px; border-bottom: none; }}
+
+  ol.top3 {{ list-style: none; padding: 0; margin: 0; counter-reset: n; }}
+  ol.top3 li {{ position: relative; padding: 16px 16px 16px 52px; margin: 12px 0;
+       background: #f4f6fb; border-radius: 12px; }}
+  ol.top3 li::before {{ counter-increment: n; content: counter(n);
+       position: absolute; left: 14px; top: 16px; width: 26px; height: 26px;
+       border-radius: 50%; background: #4f8cff; color: #fff; font-size: 14px;
+       font-weight: 700; display: flex; align-items: center; justify-content: center; }}
+
+  ul {{ list-style: none; padding: 0; margin: 0; }}
+  ul li {{ padding: 12px 2px; border-bottom: 1px solid rgba(128,128,128,.15); }}
+  ul li:last-child {{ border-bottom: none; }}
+
+  .tag {{ display: inline-block; font-size: 12px; font-weight: 600; line-height: 1;
+         padding: 3px 8px; border-radius: 6px; background: #e7ecfb; color: #3f62e0;
+         margin-right: 6px; }}
+  a {{ color: #0a66c2; text-decoration: none; border-bottom: 1px solid rgba(10,102,194,.35);
+      word-break: break-all; }}
+  a:hover {{ border-bottom-color: #0a66c2; }}
+
   @media (prefers-color-scheme: dark) {{
-    body {{ color: #e5e5e7; background: #101012; }}
-    a {{ color: #6cb0ff; }}
+    body {{ color: #e6e6ea; background: #111114; }}
+    ol.top3 li {{ background: #1c1d24; }}
+    .tag {{ background: #2a3350; color: #9db4ff; }}
+    ul li {{ border-bottom-color: rgba(255,255,255,.12); }}
+    a {{ color: #7ab7ff; border-bottom-color: rgba(122,183,255,.35); }}
   }}
-  .meta {{ color: #999; font-size: 13px; margin-bottom: 6px; }}
-  h1 {{ font-size: 24px; margin: 6px 0 22px; line-height: 1.35; }}
-  h2 {{ font-size: 18px; margin: 30px 0 12px; padding-bottom: 6px;
-       border-bottom: 1px solid rgba(128,128,128,.25); }}
-  h2.section {{ border-left: 4px solid #4f8cff; padding-left: 10px; border-bottom: none; }}
-  p.region {{ font-weight: 600; margin: 16px 0 6px; }}
-  li {{ margin: 8px 0; }}
-  a {{ color: #0a66c2; text-decoration: none; word-break: break-all; }}
-  a:hover {{ text-decoration: underline; }}
 </style>
 </head>
 <body>

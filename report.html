@@ -6,43 +6,64 @@
 <title>今日AI：GPT-6免费开放，ChatGPT长出交互界面</title>
 <style>
   :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
   body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-         max-width: 720px; margin: 0 auto; padding: 32px 20px 72px;
-         line-height: 1.75; color: #1c1c1e; background: #fff; }
+         max-width: 680px; margin: 0 auto; padding: 30px 20px 80px;
+         line-height: 1.75; font-size: 16px; color: #1b1b1f; background: #fff;
+         -webkit-font-smoothing: antialiased; }
+  .meta { color: #999; font-size: 13px; margin-bottom: 4px; }
+  h1 { font-size: 26px; line-height: 1.35; margin: 6px 0 24px; }
+  h2 { font-size: 19px; margin: 34px 0 14px; padding-bottom: 8px;
+       border-bottom: 2px solid #4f8cff; }
+  h2.section { border-left: 4px solid #4f8cff; padding-left: 12px; border-bottom: none; }
+
+  ol.top3 { list-style: none; padding: 0; margin: 0; counter-reset: n; }
+  ol.top3 li { position: relative; padding: 16px 16px 16px 52px; margin: 12px 0;
+       background: #f4f6fb; border-radius: 12px; }
+  ol.top3 li::before { counter-increment: n; content: counter(n);
+       position: absolute; left: 14px; top: 16px; width: 26px; height: 26px;
+       border-radius: 50%; background: #4f8cff; color: #fff; font-size: 14px;
+       font-weight: 700; display: flex; align-items: center; justify-content: center; }
+
+  ul { list-style: none; padding: 0; margin: 0; }
+  ul li { padding: 12px 2px; border-bottom: 1px solid rgba(128,128,128,.15); }
+  ul li:last-child { border-bottom: none; }
+
+  .tag { display: inline-block; font-size: 12px; font-weight: 600; line-height: 1;
+         padding: 3px 8px; border-radius: 6px; background: #e7ecfb; color: #3f62e0;
+         margin-right: 6px; }
+  a { color: #0a66c2; text-decoration: none; border-bottom: 1px solid rgba(10,102,194,.35);
+      word-break: break-all; }
+  a:hover { border-bottom-color: #0a66c2; }
+
   @media (prefers-color-scheme: dark) {
-    body { color: #e5e5e7; background: #101012; }
-    a { color: #6cb0ff; }
+    body { color: #e6e6ea; background: #111114; }
+    ol.top3 li { background: #1c1d24; }
+    .tag { background: #2a3350; color: #9db4ff; }
+    ul li { border-bottom-color: rgba(255,255,255,.12); }
+    a { color: #7ab7ff; border-bottom-color: rgba(122,183,255,.35); }
   }
-  .meta { color: #999; font-size: 13px; margin-bottom: 6px; }
-  h1 { font-size: 24px; margin: 6px 0 22px; line-height: 1.35; }
-  h2 { font-size: 18px; margin: 30px 0 12px; padding-bottom: 6px;
-       border-bottom: 1px solid rgba(128,128,128,.25); }
-  h2.section { border-left: 4px solid #4f8cff; padding-left: 10px; border-bottom: none; }
-  p.region { font-weight: 600; margin: 16px 0 6px; }
-  li { margin: 8px 0; }
-  a { color: #0a66c2; text-decoration: none; word-break: break-all; }
-  a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
-<div class="meta">AI 每日简报 · 2026-10-08 12:34</div>
+<div class="meta">AI 每日简报 · 2026-10-08 13:04</div>
 <h1>今日AI：GPT-6免费开放，ChatGPT长出交互界面</h1>
 <h2>今日速览（Top 3）</h2>
-<ol>
+<ol class="top3">
 <li><strong>GPT-6免费开放并上线&quot;智能界面&quot;</strong> —— ChatGPT 聊天框升级为可交互界面，回答中直接嵌入图表、表单和按钮，所有用户免费可用，<a href="https://www.theverge.com/ai-artificial-intelligence/1007276/openai-chatgpt-intelligent-ui-gpt-6" target="_blank" rel="noopener">原文</a></li>
 <li><strong>Claude 新模型发布，小模型跑分反超 GPT-6 Luna</strong> —— 主打低价高性能，被称&quot;小模型新守门员&quot;，OpenAI 以赠送重置卡应对，<a href="https://www.qbitai.com/2026/10/501832.html" target="_blank" rel="noopener">原文</a></li>
 <li><strong>微软发布 Nvidia 芯片 AI PC 与新版 Windows</strong> —— Surface Laptop Ultra 起售 2599 美元，Copilot 获本地文件访问与跨系统操作权限，<a href="https://techcrunch.com/2026/10/07/microsoft-releases-new-nvidia-chip-ai-pcs-with-revamped-windows-11/" target="_blank" rel="noopener">原文</a></li>
 </ol>
 <h2>其他值得关注</h2>
 <ul>
-<li>🇺🇸 商业 · Nous Research 确认 15 亿美元估值，完成 9000 万美元 B 轮并推出面向企业的 AI Agent，<a href="https://techcrunch.com/2026/10/07/nous-research-confirms-it-hit-1-5b-valuation-launches-ai-agents-for-business-users/" target="_blank" rel="noopener">原文</a></li>
-<li>🇺🇸 商业 · Meta AI 助手 Muse 登陆 iPad，移动端上线仅一个月便快速扩张生态，<a href="https://techcrunch.com/2026/10/07/metas-muse-launches-on-ipad-just-a-month-after-its-mobile-debut/" target="_blank" rel="noopener">原文</a></li>
-<li>🇺🇸 技术 · 海外开源模型重新提速，&quot;美版 DeepSeek&quot;首度交卷，Mistral 同期亮牌，<a href="https://www.infoq.cn/article/0wk4G4cZwbHgYdeNoQPV?utm_source=rss&amp;utm_medium=article" target="_blank" rel="noopener">原文</a></li>
-<li>🇨🇳 商业 · 大模型原生智能体手机 STEPX Neo 将于 10 月 13 日发布，<a href="https://www.qbitai.com/2026/10/501915.html" target="_blank" rel="noopener">原文</a></li>
-<li>🇨🇳 商业 · 卡尔动力启动规模化 AI 运输网络，&quot;无驾驶舱&quot;重卡上路，无人货运进入扩张期，<a href="https://www.leiphone.com/category/transportation/YNHH7HgbCnGN56XQ.html" target="_blank" rel="noopener">原文</a></li>
-<li>🇺🇸 商业 · 开发者以开源克隆挑战 Adobe，Opus 打造的 Creative Cloud 替代品免费但尚未完工，<a href="https://arstechnica.com/ai/2026/10/software-is-over-bold-ai-developer-takes-aim-at-adobe-with-open-source-clones/" target="_blank" rel="noopener">原文</a></li>
+<li><span class="tag">🇺🇸 商业</span> Nous Research 确认 15 亿美元估值，完成 9000 万美元 B 轮并推出面向企业的 AI Agent，<a href="https://techcrunch.com/2026/10/07/nous-research-confirms-it-hit-1-5b-valuation-launches-ai-agents-for-business-users/" target="_blank" rel="noopener">原文</a></li>
+<li><span class="tag">🇺🇸 商业</span> Meta AI 助手 Muse 登陆 iPad，移动端上线仅一个月便快速扩张生态，<a href="https://techcrunch.com/2026/10/07/metas-muse-launches-on-ipad-just-a-month-after-its-mobile-debut/" target="_blank" rel="noopener">原文</a></li>
+<li><span class="tag">🇺🇸 技术</span> 海外开源模型重新提速，&quot;美版 DeepSeek&quot;首度交卷，Mistral 同期亮牌，<a href="https://www.infoq.cn/article/0wk4G4cZwbHgYdeNoQPV?utm_source=rss&amp;utm_medium=article" target="_blank" rel="noopener">原文</a></li>
+<li><span class="tag">🇨🇳 商业</span> 大模型原生智能体手机 STEPX Neo 将于 10 月 13 日发布，<a href="https://www.qbitai.com/2026/10/501915.html" target="_blank" rel="noopener">原文</a></li>
+<li><span class="tag">🇨🇳 商业</span> 卡尔动力启动规模化 AI 运输网络，&quot;无驾驶舱&quot;重卡上路，无人货运进入扩张期，<a href="https://www.leiphone.com/category/transportation/YNHH7HgbCnGN56XQ.html" target="_blank" rel="noopener">原文</a></li>
+<li><span class="tag">🇺🇸 商业</span> 开发者以开源克隆挑战 Adobe，Opus 打造的 Creative Cloud 替代品免费但尚未完工，<a href="https://arstechnica.com/ai/2026/10/software-is-over-bold-ai-developer-takes-aim-at-adobe-with-open-source-clones/" target="_blank" rel="noopener">原文</a></li>
 </ul>
 <h2>今日趋势</h2>
-<p class="">大模型竞争从&quot;跑分&quot;转向&quot;界面与生态&quot;：GPT-6 用交互式 UI 抢占入口，Claude 以性价比卡位，微软则把 AI 塞进操作系统底层——谁能定义用户与 AI 的交互方式，谁就掌握下一轮话语权。</p>
+<p>大模型竞争从&quot;跑分&quot;转向&quot;界面与生态&quot;：GPT-6 用交互式 UI 抢占入口，Claude 以性价比卡位，微软则把 AI 塞进操作系统底层——谁能定义用户与 AI 的交互方式，谁就掌握下一轮话语权。</p>
 </body>
 </html>
