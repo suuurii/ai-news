@@ -10,6 +10,7 @@ load_dotenv(ROOT / ".env")
 
 DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY", "").strip()
 PUSHPLUS_TOKEN = os.environ.get("PUSHPLUS_TOKEN", "").strip()
+BARK_KEY = os.environ.get("BARK_KEY", "").strip()
 
 CN_TZ = timezone(timedelta(hours=8))
 
