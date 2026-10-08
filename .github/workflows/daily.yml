@@ -6,11 +6,16 @@ on:
   workflow_dispatch: {}     # 支持手动触发
 
 permissions:
-  contents: write           # 允许部署 gh-pages 分支
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   briefing:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     env:
       TZ: Asia/Shanghai
       REPORT_URL: https://suuurii.github.io/ai-news/report.html
@@ -43,14 +48,17 @@ jobs:
           cp report.html _site/index.html
           cp report.html _site/report.html
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
-          publish_branch: gh-pages
-          enable_jekyll: false
-          force_orphan: true
+          path: ./_site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
       - name: Push to iPhone (Bark)
         run: python scripts/push_bark.py
