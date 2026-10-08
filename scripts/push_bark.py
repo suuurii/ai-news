@@ -13,7 +13,7 @@ from config import BARK_KEY  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 BRIEFING = ROOT / "data" / "briefing.md"
 
-DEFAULT_REPORT_URL = "https://raw.githubusercontent.com/suuurii/ai-news/main/report.html"
+DEFAULT_REPORT_URL = "https://suuurii.github.io/ai-news/report.html"
 
 
 def _plain(text: str) -> str:

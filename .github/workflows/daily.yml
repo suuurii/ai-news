@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TZ: Asia/Shanghai
-      REPORT_URL: https://raw.githubusercontent.com/suuurii/ai-news/main/report.html
+      REPORT_URL: https://suuurii.github.io/ai-news/report.html
     steps:
       - name: Checkout
         uses: actions/checkout@v4
