@@ -10,6 +10,10 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: daily-briefing
+  cancel-in-progress: false
+
 jobs:
   briefing:
     runs-on: ubuntu-latest
